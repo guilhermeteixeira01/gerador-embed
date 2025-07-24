@@ -1,0 +1,123 @@
+body {
+    background-color: #2f3136;
+    --background-color: #202225;
+    overflow-y: auto;
+}
+
+h1 {
+    color: white;
+    margin-top: 1rem;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.d-h1 {
+    font-weight: 600;
+    font-size: 2rem;
+}
+
+.d-h2 {
+    font-weight: 600;
+    font-size: 1.7rem;
+}
+
+.d-h3 {
+    font-weight: 600;
+    font-size: 1.33rem;
+}
+
+.d-h4 {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.primary {
+    color: #00b0f4;
+    font-weight: 400;
+}
+
+label {
+    color: white;
+    text-align: right;
+}
+
+.form-control {
+    background-color: #36393f;
+    color: white;
+    border: none;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.input-group-text {
+    display: block;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
+
+.accordion-item {
+    background: transparent;
+}
+
+.accordion-button {
+    background-color: transparent;
+    color: white;
+}
+
+.accordion-button:not(.collapsed) {
+    background-color: transparent;
+    color: white;
+}
+
+.form-embed-field {
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, .05);
+    margin-bottom: 1rem;
+    border-radius: 5px;
+}
+
+input[type="color"] {
+    height: 39px;
+    margin-left: 0 !important;
+
+}
+
+
+@media screen and (min-width: 768px) {
+    .discord-messages {
+        position: sticky;
+        top: 0;
+    }
+}
+
+.form-buttons {
+    margin-top: 1rem;
+}
+
+.output-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 48px;
+    gap: 0.5rem;
+}
+
+.output {
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, .05);
+    background-color: #36393f;
+    border-radius: 5px;
+    color: white;
+}
+
+.output-button-wrapper {
+    gap: 0.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.output-btn {
+    width: 100%;
+}

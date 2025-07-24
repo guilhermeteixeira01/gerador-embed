@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discord Embed Gerador NightFall Bots</title>
+    <meta name="description" content="Discord Embed Gerador NightFall Bots">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="./img/Logo NightFall Bots.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./img/Logo NightFall Bots.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./img/Logo NightFall Bots.png">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style/discord.css">
+    <link rel="stylesheet" href="style/main.css">
+</head>
+
+<body>
+    <div id="app">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Discord Embed Gerador <span style="color: cyan;">NightFall Bots</span></h1>
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 offset-xl-2 col-xl-4">
+                    <form v-on:submit.prevent>
+                        <div class="accordion" id="accordionForm">
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseDefault" aria-expanded="true"
+                                        aria-controls="collapseDefault">
+                                        Basic
+                                    </button>
+                                </h2>
+                                <div id="collapseDefault" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="form-group row">
+                                            <label for="color" class="col-3 col-form-label">Color</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input type="checkbox" @change="clearColor($event)"
+                                                                v-model="cbxColor"
+                                                                aria-label="Checkbox for following text input">
+                                                        </div>
+                                                    </div>
+                                                    <input id="color" name="color" type="color" class="form-control"
+                                                        v-model="embed.color" @change="updateColor">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-3 col-form-label" for="title">Title</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-header"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="title" name="title" placeholder="This is the title"
+                                                        type="text" v-model="embed.title" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="url" class="col-3 col-form-label">URL</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-link"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="url" name="url" placeholder="https://riftq.com/euw/"
+                                                        type="text" v-model="embed.url" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="description" class="col-3 col-form-label">Description</label>
+                                            <div class="col-9">
+                                                <textarea id="description" ref="descriptionInput" name="description"
+                                                    cols="40" rows="5" v-model="embed.description"
+                                                    class="form-control"></textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <label for="thumbnail.url" class="col-3 col-form-label">Thumbnail</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-file-image-o"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="thumbnail.url" name="thumbnail.url"
+                                                        placeholder="https://i.imgur.com/UTUa6Zl.gif" type="text"
+                                                        class="form-control" v-model="embed.thumbnail.url">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="image.url" class="col-3 col-form-label">Image</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-file-image-o"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="image.url" name="image.url"
+                                                        placeholder="https://i.imgur.com/AfFp7pu.png"
+                                                        v-model="embed.image.url" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseAuthor" aria-expanded="true"
+                                        aria-controls="collapseAuthor">
+                                        Author
+                                    </button>
+                                </h2>
+
+                                <div id="collapseAuthor" class="accordion-collapse collapse collapsed"
+                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="form-group row">
+                                            <label for="author.name" class="col-3 col-form-label">Author Name</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-file-text"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="author.name" name="author.name"
+                                                        placeholder="NightFall Bot" type="text"
+                                                        v-model="embed.author.name" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="author.icon_url" class="col-3 col-form-label">Author
+                                                Icon</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-file-image-o"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="author.icon_url" name="author.icon_url"
+                                                        placeholder="./img/Logo NightFall Bots.png" type="text"
+                                                        class="form-control" v-model="embed.author.icon_url">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="author.url" class="col-3 col-form-label">Author URL</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-link"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="author.url" name="author.url"
+                                                        placeholder="https://riftq.com/euw/" v-model="embed.author.url"
+                                                        type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFields" aria-expanded="true"
+                                        aria-controls="collapseFields">
+                                        Fields
+                                    </button>
+                                </h2>
+                                <div id="collapseFields" class="accordion-collapse collapse collapsed"
+                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="fields row">
+                                            <draggable v-model="embed.fields" @start="drag=true" @end="drag=false">
+                                                <template v-for="(field, index) in embed.fields" :key="index">
+                                                    <div class="form-embed-field col-12" @mouseover="hoverField(index)"
+                                                        @mouseleave="blurField(index)">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="form-group row">
+                                                                    <label :for="`field-name-${index}`"
+                                                                        class="col-3 col-form-label">Field Name</label>
+
+                                                                    <div class="col-9">
+                                                                        <div class="input-group">
+                                                                            <input :name="`field-name-${index}`"
+                                                                                :id="`field-name-${index}`"
+                                                                                placeholder="Embed Name"
+                                                                                v-model="field.name" type="text"
+                                                                                class="form-control">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12">
+                                                                <div class="form-group row">
+                                                                    <label :for="`field-value-${index}`"
+                                                                        class="col-3 col-form-label">Field Value</label>
+
+                                                                    <div class="col-9">
+                                                                        <div class="input-group">
+                                                                            <textarea :name="`field-value-${index}`"
+                                                                                :id="`field-value-${index}`" cols="40"
+                                                                                rows="2" v-model="field.value"
+                                                                                class="form-control">{{ field.value }}</textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-9 offset-3">
+
+                                                                <div class="form-check">
+                                                                    <input class="form-check-input" type="checkbox"
+                                                                        :name="`field-inline-${index}`"
+                                                                        :id="`field-inline-${index}`"
+                                                                        v-model="field.inline">
+                                                                    <label class="form-check-label"
+                                                                        :for="`field-inline-${index}`">
+                                                                        Display inline
+                                                                    </label>
+                                                                </div>
+                                                                <button class="btn btn-link btn-sm text-danger"
+                                                                    type="submit"
+                                                                    @click="deleteField(index)">Delete</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </draggable>
+                                        </div>
+                                        <div class="row">
+                                            <button class="btn btn-primary field-add-button" @click="addField"
+                                                v-if="embed.fields.length <= 20">Add Field</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingTwo">
+                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#collapseFooter" aria-expanded="true"
+                                        aria-controls="collapseFooter">
+                                        Footer
+                                    </button>
+                                </h2>
+
+                                <div id="collapseFooter" class="accordion-collapse collapse collapsed"
+                                    aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="form-group row">
+                                            <label for="footer.text" class="col-3 col-form-label">Footer Text</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-file-text"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="footer.text" name="footer.text"
+                                                        placeholder="This is the footer text"
+                                                        v-model="embed.footer.text" type="text" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="footer.icon_url" class="col-3 col-form-label">Footer
+                                                Icon</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <i class="fa fa-file-image-o"></i>
+                                                        </div>
+                                                    </div>
+                                                    <input id="footer.icon_url" name="footer.icon_url"
+                                                        placeholder="./img/Logo NightFall Bots.png" type="text"
+                                                        class="form-control" v-model="embed.footer.icon_url">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="timestamp" class="col-3 col-form-label">Timestamp</label>
+                                            <div class="col-9">
+                                                <div class="input-group">
+                                                    <div class="input-group-prepend">
+                                                        <div class="input-group-text">
+                                                            <input type="checkbox" @change="clearTimestamp($event)"
+                                                                aria-label="Checkbox for following text input">
+                                                        </div>
+                                                    </div>
+                                                    <input id="timestamp" name="timestamp" placeholder="now"
+                                                        type="datetime-local" v-model="embed.timestamp"
+                                                        class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group form-buttons" role="group" aria-label="Basic example">
+                                <button name="submit" class="btn btn-primary" @click="toEmbedStr">Gerar Json</button>
+                                <button name="submit" class="btn btn-danger" @click="clearEmbed">Limpar</button>
+                                <h1 style="font-size: 0.9rem;">Antes de começar a Editar Aperte em <span
+                                        style="color: red;">Limpar</span>
+                                </h1>
+                            </div>
+                            <div class="output-wrapper" v-if="output">
+                                <textarea class="output" v-model="output"></textarea>
+                                <div class="output-button-wrapper">
+                                    <button type="button" class="output-btn btn btn-secondary"
+                                        @click="copyToClipboard"><i class="fa fa-copy"></i></button>
+                                    <button type="button" class="output-btn btn btn-primary"
+                                        @click="copyCommandToClipboard">!<i class="fa fa-copy"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-6">
+                    <div class="discord-messages">
+                        <div class="discord-message">
+                            <div class="discord-message-content">
+                                <div class="discord-author-avatar">
+                                    <img src="./img/Logo NightFall Bots.png" alt="">
+                                </div>
+                                <div class="discord-message-body">
+
+                                    <div>
+                                        <span class="discord-author-info">
+                                            <span class="discord-author-username">NightFall Bot</span>
+                                            <span class="discord-author-bot-tag"> Bot </span>
+                                        </span>
+                                        <span class="discord-message-timestamp">{{ new Date().toDateString() }}</span>
+                                    </div>
+
+                                    <div class="discord-embed">
+                                        <div class="discord-embed-left-border"
+                                            style="background-color:var(--background-color);"></div>
+                                        <div class="discord-embed-container">
+                                            <div class="discord-embed-content">
+                                                <div>
+                                                    <div class="discord-embed-author">
+                                                        <img v-if="embed.author.icon_url"
+                                                            class="discord-embed-author-icon"
+                                                            :src="embed.author.icon_url" alt="">
+
+                                                        <span v-if="!embed.author.url">{{embed.author.name}}</span>
+                                                        <a v-if="embed.author.url" :href="embed.author.url"
+                                                            target="_blank" rel="noopener noreferrer">
+                                                            {{embed.author.name}}
+                                                        </a>
+                                                    </div>
+
+                                                    <div class="discord-embed-title" v-if="embed.title">
+                                                        <span v-if="!embed.url">{{embed.title}}</span>
+                                                        <a v-if="embed.url" href="https://discord.js.org/"
+                                                            target="_blank" rel="noopener noreferrer">
+                                                            {{embed.title}}
+                                                        </a>
+                                                    </div>
+
+                                                    <div v-if="embed.description" class="discord-embed-description"
+                                                        v-html="fromMarkdown(embed.description)">
+                                                    </div>
+
+                                                    <div class="discord-embed-fields">
+                                                        <template v-for="field in embed.fields">
+                                                            <div class="discord-embed-field"
+                                                                v-bind:class="{ 'discord-embed-field-inline': field.inline }">
+                                                                <div class="discord-embed-field-title">{{field.name}}
+                                                                </div>
+                                                                <div class="discord-embed-field-value"
+                                                                    v-html="fromMarkdown(field.value)">
+                                                                </div>
+                                                            </div>
+                                                        </template>
+                                                    </div>
+
+                                                    <img v-if="embed.image" class="discord-embed-image"
+                                                        :src="embed.image.url" alt="">
+                                                </div>
+
+                                                <img v-if="embed.thumbnail" class="discord-embed-thumbnail"
+                                                    :src="embed.thumbnail.url" alt="">
+                                            </div>
+
+                                            <div class="discord-embed-footer">
+                                                <img v-if="embed.footer.icon_url" class="discord-embed-footer-icon"
+                                                    :src="embed.footer.icon_url" alt="">
+                                                <span>
+                                                    <span>{{ embed.footer.text }}</span>
+                                                    <span v-if="embed.timestamp" class="discord-embed-footer-separator">
+                                                        • </span>
+                                                    <span v-if="embed.timestamp">{{ printTimestamp(embed.timestamp)
+                                                        }}</span>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success and Error Toasts -->
+        <div aria-live="polite" aria-atomic="true" class="position-relative">
+            <div class="toast-container position-fixed top-0 end-0 p-3">
+                <!-- Success Toast -->
+                <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true" ref="successToast">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Successfully copied to clipboard!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+
+                <!-- Command Success Toast -->
+                <div class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true" ref="commandSuccessToast">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Bot-command successfully copied to clipboard!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+
+                <!-- Error Toast -->
+                <div class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive"
+                    aria-atomic="true" ref="errorToast">
+                    <div class="d-flex">
+                        <div class="toast-body">
+                            Failed to copy!
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+                            aria-label="Close"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="height: 100px;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+        </script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.8.4/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Vue.Draggable/2.20.0/vuedraggable.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
